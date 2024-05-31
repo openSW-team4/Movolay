@@ -5,6 +5,7 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const MongoStore = require('connect-mongo');
+const bcrypt = require('bcrypt');
 
 app.set('view engine', 'ejs');
 
@@ -19,7 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
-            mongoUrl: '이곳에 db 주소를 입력하세요.',
+            mongoUrl: '이곳에 db 주소를 입력하시면 됩니다~!!',
             dbName: 'opensource_project',
         }),
     })
@@ -28,7 +29,7 @@ app.use(
 app.use(passport.session());
 
 let db;
-const url = '이곳에 db 주소를 입력하세요.';
+const url = '이곳에 db 주소를 입력하시면 됩니다~!!';
 new MongoClient(url)
     .connect()
     .then((client) => {
@@ -59,14 +60,15 @@ app.get('/sign-up', (req, res) => {
 });
 
 // 회원 가입 요청을 처리하는 API
-app.post('/sign-up', (req, res) => {
+app.post('/sign-up', async (req, res) => {
     let username = req.body.username;
     let password = req.body.password;
-    let genres = req.body.genres
+    let hashedPassword = await bcrypt.hash(password, 10);
+    let genres = req.body.genres;
 
     db.collection('user').insertOne({
         username: username,
-        password: password, // 이후, 보안을 위한 해시를 적용할 필요있음
+        password: hashedPassword,
         genres : genres
     });
 
@@ -80,7 +82,7 @@ passport.use(
         if (!result) {
             return cb(null, false, { message: '아이디가 존재하지 않습니다.' });
         }
-        if (result.password == password) {
+        if (await bcrypt.compare(password, result.password)) {
             return cb(null, result);
         } else {
             return cb(null, false, { message: '비밀번호가 일치하지 않습니다.' });
