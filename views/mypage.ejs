@@ -85,5 +85,18 @@
             </div>
         </form>
     </div>
+
+    <script>
+        const data = JSON.parse('<%- genres %>');
+        if (document.getElementById('profileForm')) {
+            const userPreferences = data || [];
+            userPreferences.forEach(preference => {
+                const checkbox = document.getElementById(preference);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+         }
+    </script>
 </body>
 </html>

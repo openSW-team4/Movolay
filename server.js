@@ -20,7 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
-            mongoUrl: '이곳에 db 주소를 입력하시면 됩니다~!!',
+            mongoUrl: '이곳에 DB주소를 입력해주세요!!',
             dbName: 'opensource_project',
         }),
     })
@@ -29,7 +29,7 @@ app.use(
 app.use(passport.session());
 
 let db;
-const url = '이곳에 db 주소를 입력하시면 됩니다~!!';
+const url = '이곳에 DB주소를 입력해주세요!!';
 new MongoClient(url)
     .connect()
     .then((client) => {
@@ -121,20 +121,37 @@ app.post('/log-in', (req, res, next) => {
     })(req, res, next);
 });
 
+// 로그아웃 요청을 처리하는 API
+app.get('/log-out', (req, res, next) => {
+    req.logOut(err => {
+        if (err) {
+            return next(err);
+        }
+        req.session.destroy(err => {
+            if (err) {
+                return next(err);
+            }
+            res.clearCookie('connect.sid', { path: '/' });
+            res.redirect('/');
+        });
+    });
+});
+
 app.get('/main', async (req, res) => {
     let result = await db.collection('user').findOne({ _id : new ObjectId(req.user.id) });
-    let genres = result.genres
-    res.render('main.ejs', {genres : JSON.stringify(genres)})
+    let genres = result.genres;
+    res.render('main.ejs', {genres : JSON.stringify(genres)});
 })
 
 app.get('/my-page', async (req, res) => {
     let result = await db.collection('user').findOne({ _id : new ObjectId(req.user.id) });
-    res.render('mypage.ejs')
+    let genres = result.genres;
+    res.render('mypage.ejs', {genres : JSON.stringify(genres)});
 })
 
 // DB에 유저의 영화 정보 수정
 app.post('/my-page', async (req, res) => {
-    let updatedGenres = req.body.genres
+    let updatedGenres = req.body.genres;
     await db.collection('user').updateOne({_id : new ObjectId(req.user.id)}, {$set: {genres: updatedGenres}});
     res.render('main.ejs', { genres: JSON.stringify(updatedGenres) });
 })

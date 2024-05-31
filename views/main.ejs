@@ -16,7 +16,7 @@
             <div class="nav" id="right-nav">
                 <input type="text" placeholder="Search" />
                 <button id="searchButton"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <a href="/log-in" style="padding-left: 30px; padding-right: 10px;">Logout</a>
+                <a href="/log-out" style="padding-left: 30px; padding-right: 10px;">Logout</a>
                 <a href="/my-page" style="padding-left: 10px;">My page</a>
             </div>
         </nav>
@@ -57,12 +57,6 @@
             console.log(data)
 
             let sortBy = 'rating'; // 기본 정렬 기준
-
-            // 로그아웃 버튼 처리
-            document.getElementById('logoutButton')?.addEventListener('click', () => {
-                // 로그아웃 로직 추가
-                window.location.href = 'login.html';
-            });
 
             // 정렬 기준 선택 처리
             document.getElementById('sortSelect')?.addEventListener('change', (e) => {
