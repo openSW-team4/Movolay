@@ -5,7 +5,7 @@
 
 <img src ="https://img.shields.io/badge/Service-Web-red"></img>
 <img src ="https://img.shields.io/badge/Frontend-VanilaJS-yellow"></img>
-<img src ="https://img.shields.io/badge/backend-ExpressJS-blue"></img>
+<img src ="https://img.shields.io/badge/Backend-ExpressJS-blue"></img>
 <img src ="https://img.shields.io/badge/Database-MongoDB-green"></img>
 
 
