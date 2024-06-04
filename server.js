@@ -20,8 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
-            // mongoUrl: '이곳에 DB주소를 입력해주세요!!',
-            mongoUrl: 'mongodb+srv://admin:qwer1234@cluster0.y85dhhf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+            mongoUrl: '이곳에 DB주소를 입력해주세요!!',
             dbName: 'opensource_project',
         }),
     })
@@ -30,8 +29,7 @@ app.use(
 app.use(passport.session());
 
 let db;
-// const url = '이곳에 DB주소를 입력해주세요!!';
-const url = 'mongodb+srv://admin:qwer1234@cluster0.y85dhhf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const url = '이곳에 DB주소를 입력해주세요!!';
 new MongoClient(url)
     .connect()
     .then((client) => {
