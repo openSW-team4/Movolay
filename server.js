@@ -20,7 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
-            mongoUrl: '이곳에 DB주소를 입력해주세요!!',
+            mongoUrl: 'mongodb://admin:qwer1234@ac-7aspg5m-shard-00-00.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-01.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-02.y85dhhf.mongodb.net:27017/?ssl=true&replicaSet=atlas-fv9zkt-shard-0&authSource=admin&retryWrites=true&w=majority',
             dbName: 'opensource_project',
         }),
     })
@@ -29,7 +29,7 @@ app.use(
 app.use(passport.session());
 
 let db;
-const url = '이곳에 DB주소를 입력해주세요!!';
+const url = 'mongodb://admin:qwer1234@ac-7aspg5m-shard-00-00.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-01.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-02.y85dhhf.mongodb.net:27017/?ssl=true&replicaSet=atlas-fv9zkt-shard-0&authSource=admin&retryWrites=true&w=majority';
 new MongoClient(url)
     .connect()
     .then((client) => {
