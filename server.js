@@ -20,7 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
-            mongoUrl: '이곳에 DB주소를 입력해주세요!!',
+            mongoUrl: '여기에 DB 주소를 입력해 주세요!',
             dbName: 'opensource_project',
         }),
     })
@@ -29,7 +29,7 @@ app.use(
 app.use(passport.session());
 
 let db;
-const url = '이곳에 DB주소를 입력해주세요!!';
+const url = '여기에 DB 주소를 입력해 주세요!';
 new MongoClient(url)
     .connect()
     .then((client) => {
@@ -152,6 +152,19 @@ app.get('/my-page', async (req, res) => {
 // DB에 유저의 영화 정보 수정
 app.post('/my-page', async (req, res) => {
     let updatedGenres = req.body.genres;
+
+    if (Array.isArray(updatedGenres)) {
+        // 이미 배열인 경우 그대로 사용
+    } else {
+        // 배열이 아닌 경우
+        if (updatedGenres) {
+            // updatedGenres가 존재하는 경우 배열로 변환
+            updatedGenres = [updatedGenres];
+        } else {
+            // updatedGenres가 존재하지 않는 경우 빈 배열로 설정
+            updatedGenres = [];
+        }
+    }
     await db.collection('user').updateOne({_id : new ObjectId(req.user.id)}, {$set: {genres: updatedGenres}});
     res.render('main.ejs', { genres: JSON.stringify(updatedGenres) });
 })
