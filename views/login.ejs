@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles.css">
     <title>Login</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <nav>
+        <div class="nav" id="left-nav">
+            <div class="title" href="">Movolay</div> 
+        </div>
+        <div class="nav" id="right-nav">
+            <a href="/log-in" style="padding: 10px;">Login</a>
+            <a href="/sign-up" style="padding-left: 10px;">SignUp</a>
+        </div>    
+    </nav>
     <div class="login-container">
         <h1>Login</h1>
         <form id="loginForm" method="post" action="/log-in">
@@ -14,7 +23,7 @@
             <input type="password" id="id-password" name="password" placeholder="Password" required />
             <button type="submit">Login</button>
         </form>
-        <p>회원이 아니신가요?   <a href="/sign-up">회원가입</a></p>
+        <p>회원이 아니신가요?   <a href="/sign-up" style="color: red;">  SignUp</a></p>
     </div>
     <script src="scripts.js"></script>
 </body>
