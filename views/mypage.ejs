@@ -97,6 +97,14 @@
                 }
             });
          }
+
+        document.getElementById('selectAllButton')?.addEventListener('click', () => {
+            const checkboxes = document.querySelectorAll('.preferences input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = !allChecked;
+            });
+        });
     </script>
 </body>
 </html>
