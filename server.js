@@ -20,6 +20,7 @@ app.use(
         saveUninitialized: false,
         cookie: { maxAge: 60 * 60 * 1000 },
         store: MongoStore.create({
+
             mongoUrl: 'mongodb://admin:qwer1234@ac-7aspg5m-shard-00-00.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-01.y85dhhf.mongodb.net:27017,ac-7aspg5m-shard-00-02.y85dhhf.mongodb.net:27017/?ssl=true&replicaSet=atlas-fv9zkt-shard-0&authSource=admin&retryWrites=true&w=majority',
             dbName: 'opensource_project',
         }),
@@ -152,6 +153,19 @@ app.get('/my-page', async (req, res) => {
 // DB에 유저의 영화 정보 수정
 app.post('/my-page', async (req, res) => {
     let updatedGenres = req.body.genres;
+
+    if (Array.isArray(updatedGenres)) {
+        // 이미 배열인 경우 그대로 사용
+    } else {
+        // 배열이 아닌 경우
+        if (updatedGenres) {
+            // updatedGenres가 존재하는 경우 배열로 변환
+            updatedGenres = [updatedGenres];
+        } else {
+            // updatedGenres가 존재하지 않는 경우 빈 배열로 설정
+            updatedGenres = [];
+        }
+    }
     await db.collection('user').updateOne({_id : new ObjectId(req.user.id)}, {$set: {genres: updatedGenres}});
     res.render('main.ejs', { genres: JSON.stringify(updatedGenres) });
 })
