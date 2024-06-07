@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let sortBy = 'rating'; // 기본 정렬 기준
 
-    // 로그아웃 버튼 처리
-    document.getElementById('logoutButton')?.addEventListener('click', () => {
-        // 로그아웃 로직 추가
-        window.location.href = 'login.html';
-    });
-
     // 정렬 기준 선택 처리
     document.getElementById('sortSelect')?.addEventListener('change', (e) => {
         sortBy = e.target.value;
