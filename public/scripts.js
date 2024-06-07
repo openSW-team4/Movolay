@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             // 업데이트된 취향 저장
             localStorage.setItem('userPreferences', JSON.stringify(newPreferences));
-            // window.location.href = 'main.html';
         });
     }
 
