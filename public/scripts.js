@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_KEY = '00a695c44fc0d3305c341bc5ec26258c'; // TMDB API 키
+    const API_KEY = 'MY API KEY'; // TMDB API 키
     const API_URL = 'https://api.themoviedb.org/3';
     const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w200';
     const moviesContainer = document.getElementById('moviesContainer');
